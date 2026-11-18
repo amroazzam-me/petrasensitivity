@@ -11,7 +11,7 @@ a replication of Ortloff's CFD nor an independent validation of it.
 
 ## Files
 - `petra_sensitivity.py`: baseline checks, one-at-a-time sensitivity and Monte Carlo (N = 4000); produces manuscript Figures 1-3.
-- `petra_extended.py`: five range scenarios (N = 40,000), Sobol indices, band dependence, Appendix A-B tables and Figures 4, 5, B1. *(add this file)*
+- `petra_extended.py`: five range scenarios (N = 40,000), Sobol indices, band dependence, Appendix A-B tables and Figures 4, 5, B1.
 
 ## Run
 Python 3.12 or later is required (nested quotes inside f-strings).
