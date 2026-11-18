@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Petra terracotta pipelines: independent check of Ortloff (2020) partial-flow claims
+Petra terracotta pipelines: closed-form reanalysis of the partial-flow interpretation in Ortloff (2020)
 ==================================================================================
 Water 2020, 12, 3498.  doi:10.3390/w12123498
 
@@ -22,15 +22,16 @@ Metric used everywhere:  ratio = S / Sc
 Run:    python petra_sensitivity.py            (about 10-30 s)
 Output: ./petra_outputs/  (figures + CSV + printed tables)
 
-IMPORTANT
----------
-* Every input below carries a status:  PUBLISHED (with page in Ortloff 2020),
-  INFERRED (derived by me/you, must be justified in the paper), or ASSUMED
-  (plausible range from hydraulics references, cite your source).
-* Verify every PUBLISHED value against the PDF yourself before using it.
+NOTES
+-----
+* Each input carries a status: PUBLISHED (page in Ortloff 2020), INFERRED
+  (derived from published values) or ASSUMED (plausible range chosen by the author).
+* Page references should be checked against the original paper.
 * Colebrook-White is an extrapolation for relative roughness eps/(4R) > ~0.05.
-  Ortloff's eps/D = 0.07-0.1 is a *lumped* roughness (joints + wear); treat
-  results at those values as indicative, and say so in the paper.
+  Ortloff's eps/D = 0.07-0.1 is a lumped roughness (joints + wear), so results
+  at those values are indicative.
+* Output figures: fig1_critical_slope_map.png (manuscript Fig. 1),
+  fig2_tornado.png (Fig. 2), fig3_montecarlo.png (Fig. 3).
 """
 import csv
 import sys
@@ -295,7 +296,7 @@ def part3_tornado():
         ax.set_title(f"{name}\nbaseline S/Sc = {r0:.2f}", fontsize=10)
         ax.legend(fontsize=7, loc="lower right")
     fig.tight_layout()
-    fig.savefig(OUT / "fig1_tornado.png", dpi=200)
+    fig.savefig(OUT / "fig2_tornado.png", dpi=200)
     plt.close(fig)
 
 
@@ -337,7 +338,7 @@ def part4_montecarlo(N=4000):
         ax.set_xlabel("log10(S / Sc)   (green = near-critical band)")
     axes[0].set_ylabel("samples")
     fig.tight_layout()
-    fig.savefig(OUT / "fig2_montecarlo.png", dpi=200)
+    fig.savefig(OUT / "fig3_montecarlo.png", dpi=200)
     plt.close(fig)
     with open(OUT / "part4_montecarlo_summary.csv", "w", newline="") as fh:
         w = csv.writer(fh)
@@ -365,7 +366,7 @@ def part5_map():
         obs = 3.0 if Q < 0.05 else 2.8
         ax.contour(DD * 100, EE, ang, levels=[obs], colors="r", linewidths=2)
     fig.tight_layout()
-    fig.savefig(OUT / "fig3_critical_slope_map.png", dpi=200)
+    fig.savefig(OUT / "fig1_critical_slope_map.png", dpi=200)
     plt.close(fig)
 
 
